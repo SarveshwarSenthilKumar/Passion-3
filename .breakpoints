@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.py": [
+      {
+        "id": "2b0f8630-45ab-4f9a-a0e1-a9a9b7f2f0c9",
+        "line": 180,
+        "version": 9784,
+        "index": 4358
+      },
+      {
+        "id": "96ddef22-f3ab-4811-8d4b-5f53140a131a",
+        "line": 507,
+        "version": 9784,
+        "index": 13766
+      }
+    ],
+    "templates/play.html": [
+      {
+        "id": "57a616c6-b30c-4939-8fd1-89af43edf80e",
+        "line": 19,
+        "version": 974,
+        "index": 786
+      }
+    ]
+  }
+}

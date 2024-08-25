@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>Passion-3</title>
+    </head>
+    <body style="background-color: black;">
+        <div style="margin-top: 1%; font-size: 7vw; color: white; text-align: center; margin-bottom: 10%">
+          Passion-3
+        </div>
+        {% if game == "bs" %}
+        <div style="margin-top: 1%; font-size: 5vw; color: white; margin-left: 22%; margin-right: 15%; ">
+          Word Key:
+          <br>
+
+          <div style="margin-left: 5%;">Ships:</div>
+          
+            <div style="margin-left: 10%;">C - Carrier(5)</div>
+            <div style="margin-left: 10%;">B - Battleship(4)</div>
+            <div style="margin-left: 10%;">Cr - Cruiser(3)</div>
+            <div style="margin-left: 10%;">S - Submarine(3)</div>
+            <div style="margin-left: 10%;">D - Destroyer(2)</div>
+        </div>
+        {% endif %}
+        <br>
+        <br>
+        <div style="margin-top: 1%; font-size: 5vw; color: white; margin-left: 22%; margin-right: 15%; ">
+          {% for sentence in sentences %}
+          {{sentence}}
+          {% endfor %}
+        </div>
+        <br>
+        <br>
+        {% if game == "rps" %}
+        <form action="/rock" method="GET">
+        <div>
+          <button type="submit" class="btn btn-danger" style="width: 30%; height: 150px; margin-left: 4%; font-size: 2vw; float: left; margin-bottom: 1%; " ><img style="width:30%; height: 150px;" src="https://pngimg.com/uploads/stone/stone_PNG13545.png"></button>
+          
+        </div>
+        </form>
+     <form action="/paper" method="GET">
+        <div>
+          <button type="submit" class="btn btn-success" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 1%;" >
+            <img style="width:27%; height: 130px;" src="https://e7.pngegg.com/pngimages/1005/897/png-clipart-desktop-paper-background-miscellaneous-texture.png"></button>
+          
+        </div>
+        </form>
+        <form action="/scissors" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 10%;" ><img style="width:30%; height: 150px;" src="http://pngimg.com/uploads/scissors/small/scissors_PNG2.png"></button>
+          
+        </div>
+        </form>
+        {% elif game == "ttt" %}
+        {% for row in board %}
+        <div style="margin-left: 6%;">
+        {% for column in row %}
+        {% if column == "X" or column == "O" %}
+        <div>
+          <div type="submit" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 1%; color:white; text-align: center;">{{column}}</div>
+          
+        </div>
+        {% else %}
+        <form action="/pickaspot" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 1%;" name="integer" value={{column}}>{{column}}</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        {% endfor %}
+        </div>
+        <br>
+        {% endfor %}
+        {% elif game == "bs" %}
+        <div style="margin-top: 1%; font-size: 2vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 7%;">
+          Instructions: <a href="https://www.hasbro.com/common/instruct/Battleship.PDF">https://www.hasbro.com/common/instruct/Battleship.PDF</a>
+        </div>
+        
+        {% for row in board %}
+        <div style="margin-left: 6%;">
+        {% for column in row %}
+
+        <div>
+          <div type="submit" style="width: 8.5%; height: 50px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 1%; color:white; text-align: center;">{{column}}</div>
+          
+        </div>
+
+        {% endfor %}
+        </div>
+        <br>
+        {% endfor %}
+        <br>
+        <br>
+        {% if "c" in notList %}
+        <form action="/assignship" method="GET" >
+        <div>
+          <br>
+
+          <input placeholder="Number" type="text" name="data" id="data"  style="width: 98%; margin-top: 7%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+          <select name="game" id="game" style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+            <option value="h">Horizontal</option>
+            <option value="v">Vertical</option>
+            
+          </select> 
+
+          <button type="submit" class="btn btn-success" style="width: 98%; height: 100px; margin-left: 1%; font-size: 4vw;" name="ship" value="carrier">Assign Carrier(5)</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        {% if "b" in notList %}
+        <form action="/assignship" method="GET">
+        <div>
+          <br>
+
+          <input placeholder="Number" type="text" name="data" id="data"  style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+          <select name="game" id="game" style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+            <option value="h">Horizontal</option>
+            <option value="v">Vertical</option>
+            
+          </select> 
+
+          <button type="submit" class="btn btn-success" style="width: 98%; height: 100px; margin-left: 1%; font-size: 4vw;" name="ship" value="battleship">Assign Battleship(4)</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        {% if "cr" in notList %}
+        <form action="/assignship" method="GET">
+        <div>
+          <br>
+
+          <input placeholder="Number" type="text" name="data" id="data"  style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+          <select name="game" id="game" style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+            <option value="h">Horizontal</option>
+            <option value="v">Vertical</option>
+            
+          </select> 
+
+          <button type="submit" class="btn btn-success" style="width: 98%; height: 100px; margin-left: 1%; font-size: 4vw;" name="ship" value="cruiser">Assign Cruiser(3)</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        {% if "s" in notList %}
+        <form action="/assignship" method="GET">
+        <div>
+          <br>
+
+          <input placeholder="Number" type="text" name="data" id="data"  style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+          <select name="game" id="game" style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+            <option value="h">Horizontal</option>
+            <option value="v">Vertical</option>
+            
+          </select> 
+
+          <button type="submit" class="btn btn-success" style="width: 98%; height: 100px; margin-left: 1%; font-size: 4vw;" name="ship" value="submarine">Assign Submarine(3)</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        {% if "d" in notList %}
+        <form action="/assignship" method="GET">
+        <div>
+          <br>
+
+          <input placeholder="Number" type="text" name="data" id="data"  style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+          <select name="game" id="game" style="width: 98%; margin-left: 1%; height: 100px; margin-bottom: 0.5%; font-size: 4vw;">
+            <option value="h">Horizontal</option>
+            <option value="v">Vertical</option>
+            
+          </select> 
+
+          <button type="submit" class="btn btn-success" style="width: 98%; height: 100px; margin-left: 1%; font-size: 4vw;" name="ship" value="destroyer">Assign Destroyer(2)</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        {% endif %}
+       
+      
+         
+       
+    </body>
+</html>

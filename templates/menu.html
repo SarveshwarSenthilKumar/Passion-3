@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta charset="utf-8">
+        {% if start == "n" %}
+        <meta http-equiv="refresh" content="5">
+        {% endif %}
+        <meta name="viewport" content="initial-scale=1, width=device-width" >
+        <title>Passion-3</title>
+    </head>
+    <body style="background-color: black;">
+        <div style="margin-top: 1%; font-size: 8vw; color: white; text-align: center; margin-bottom: 10%">
+          Passion-3 
+        </div>
+        {% if game == "bs" %}
+        <div style="margin-top: 1%; font-size: 5vw; color: white; margin-left: 22%; margin-right: 15%; ">
+          Word Key:
+          <br>
+          <div style="margin-left: 5%;">P - Picked:</div>
+          <div style="margin-left: 5%;">SS! - Ship Sunk!!</div>
+          <br>
+
+          <div style="margin-left: 5%;">Ships:</div>
+          
+            <div style="margin-left: 10%;">C - Carrier(5)</div>
+            <div style="margin-left: 10%;">B - Battleship(4)</div>
+            <div style="margin-left: 10%;">Cr - Cruiser(3)</div>
+            <div style="margin-left: 10%;">S - Submarine(3)</div>
+            <div style="margin-left: 10%;">D - Destroyer(2)</div>
+        </div>
+        <br>
+        <br>
+        {% endif %}
+        {% if start == "y" %}
+        {% if game == "rps" %}
+        <form action="/rock" method="GET">
+        <div>
+          <button type="submit" class="btn btn-danger" style="width: 30%; height: 150px; margin-left: 4%; font-size: 2vw; float: left; margin-bottom: 1%; " ><img style="width:30%; height: 150px;" src="https://pngimg.com/uploads/stone/stone_PNG13545.png"></button>
+          
+        </div>
+        </form>
+        <form action="/paper" method="GET">
+        <div>
+          <button type="submit" class="btn btn-success" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 1%;" >
+            <img style="width:27%; height: 130px;" src="https://e7.pngegg.com/pngimages/1005/897/png-clipart-desktop-paper-background-miscellaneous-texture.png"></button>
+          
+        </div>
+        </form>
+        <form action="/scissors" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 10%;" ><img style="width:30%; height: 150px;" src="http://pngimg.com/uploads/scissors/small/scissors_PNG2.png"></button>
+          
+        </div>
+        </form>
+        {% elif game == "ttt" %}
+        {% for row in board %}
+        <div style="margin-left: 6%; margin-bottom: 10%;">
+        {% for column in row %}
+        {% if column == "X" or column == "O" %}
+        <div>
+          <div type="submit" style="width: 30%; height: 150px; margin-left: 1%; font-size: 8vw; float: left;color: white;  margin-bottom: 1%; text-align: center;">{{column}}</div>
+          
+        </div>
+        {% else %}
+        <form action="/pickaspot" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 30%; height: 150px; margin-left: 1%; font-size: 2vw; float: left; margin-bottom: 1%;" name="integer" value={{column}}>{{column}}</button>
+          
+        </div>
+        </form>
+        {% endif %}
+        </div>
+        {% endfor %}
+        </div>
+        <br>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+
+        {% if start == "n" %}
+        {% if game == "ttt" %}
+        {% for row in board %}
+        <div style="margin-left: 6%; margin-bottom: 10%;">
+        {% for column in row %}
+
+        {% if column == "X" %}
+
+        <div>
+          <div type="submit" style="width: 30%; height: 200px;  font-size: 8vw; color: #00C0F0; float: left;  text-align: center; border-style: solid; border-color: red;">{{column}}</div>
+          
+        </div>
+        {% elif column == "O" %}
+        <div>
+          <div type="submit" style="width: 30%; height: 200px;  font-size: 8vw; color: #fc48aa; float: left;  text-align: center; border-style: solid; border-color: red;">{{column}}</div>
+          
+        </div>
+        {% elif column == "Xw" %}
+        <div>
+          <div type="submit" style="width: 30%; height: 200px;  font-size: 8vw; color: #00C0F0; float: left;  text-align: center; border-style: solid; border-color: green; border-width: 18px;">X</div>
+          
+        </div>
+        {% elif column == "Ow" %}
+        <div>
+          <div type="submit" style="width: 30%; height: 200px;  font-size: 8vw; color: #00C0F0; float: left;  text-align: center; border-style: solid; border-color: green; border-width: 18px;">O</div>
+          
+        </div>
+        {% else  %}
+        <div>
+          <div type="submit" style="width: 30%; height: 200px;  font-size: 8vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column}}</div>
+          
+        </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+        {% endfor %}
+        
+        {% endif %}
+        {% elif game == "bs" %}
+
+        {% if showResults == "true" %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          Player 2's Board:
+        </div>
+        {% else %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          Opponent's Board:
+        </div>
+        {% endif %}
+
+        <div style="margin-bottom: 10%;">
+        {% for row in board2 %}
+        <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 10%;">
+        {% for column in row %}
+
+        {% if "cp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "sd" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">SS!!!</div>
+          
+        </div>
+        {% elif "bp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "crp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "sp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "dp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "p" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 3vw; float: left; color: white; text-align: center; border-style: solid; border-color: white;">P</div>
+          
+        </div>
+
+        {% elif "cr" in column %}
+        <form action="/pickaspotbs" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 9%; height: 60px; margin-left: 1%; font-size: 3vw; float: left; margin-bottom: 1%;" name="integer" value={{ column[:-2]}}>*</button>
+          
+        </div>
+        </form>
+      
+        {% elif "c" in column %}
+        <form action="/pickaspotbs" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 9%; height: 60px; margin-left: 1%; font-size: 3vw; float: left; margin-bottom: 1%;" name="integer" value={{ column[:-1]}}>*</button>
+          
+        </div>
+        </form>
+        {% elif "b" in column %}
+        <form action="/pickaspotbs" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 9%; height: 60px; margin-left: 1%; font-size: 3vw; float: left; margin-bottom: 1%;" name="integer" value={{ column[:-1]}}>*</button>
+          
+        </div>
+        </form>
+        {% elif "s" in column %}
+        <form action="/pickaspotbs" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 9%; height: 60px; margin-left: 1%; font-size: 3vw; float: left; margin-bottom: 1%;" name="integer" value={{ column[:-1]}}>*</button>
+          
+        </div>
+        </form>
+        {% elif "d" in column %}
+        <form action="/pickaspotbs" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 9%; height: 60px; margin-left: 1%; font-size: 3vw; float: left; margin-bottom: 1%;" name="integer" value={{ column[:-1]}}>*</button>
+          
+        </div>
+        </form>
+        {% else %}
+        <form action="/pickaspotbs" method="GET">
+        <div>
+          <button type="submit" class="btn btn-primary" style="width: 9%; height: 60px; margin-left: 1%; font-size: 3vw; float: left; margin-bottom: 1%;" name="integer" value={{ column}}>*</button>
+          
+        </div>
+        </form>
+      
+        {% endif %}
+        
+        {% endfor %}
+        </div>
+        {% endfor %}
+        </div>
+        
+        {% if showResults == "true" %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          Player 1's Board:
+        </div>
+        {% else %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          Your Board:
+        </div>
+        {% endif %}
+        
+        {% for row in board %}
+        <div style="margin-left: 10%; margin-right: 10%; ">
+        {% for column in row %}
+
+        {% if "cp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "bp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "crp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "sp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "dp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "sd" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">SS!!!</div>
+          
+        </div>
+        {% elif "c" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+        {% elif "b" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+        {% elif "s" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+        {% elif "d" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+
+        {% elif "p" in column %}
+<div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: white;">{{column[:-1]}}</div>
+          
+        </div>
+        {% else %}
+ 
+         <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: blue;">{{column}}</div>
+          
+        </div>
+        {% endif %}
+   
+        {% endfor %}
+        </div>
+        {% endfor %}
+
+        {% endif %}
+
+
+
+        
+
+        {% if start == "n" and game == "bs" %}
+
+      
+        <div style="margin-top: 2%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 10% ">
+          {% for sentence in sentences %}
+          {{sentence}}<br>
+          {% endfor %}
+        </div>
+
+        {% if showResults == "true" %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          Player 2's Board:
+        </div>
+        {% else %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          Opponent's Board:
+        </div>
+        {% endif %}
+
+        {% for row in board2 %}
+        <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 10%;">
+        {% for column in row %}
+        
+        {% if "cp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "bp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "crp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "sp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "dp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "sd" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">SS!!!</div>
+          
+        </div>
+        {% elif "p" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; float: left; color: white; text-align: center; border-style: solid; border-color: white;">P</div>
+          
+        </div>
+        {% else %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 3vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">*</div>
+          
+        </div>
+        {% endif %}
+       
+        {% endfor %}
+        </div>
+        {% endfor %}
+        <div style="margin-bottom: 5%; margin-right: 10%; font-size: 4vw; color: black;">
+          You won a prize!! 
+        </div>
+        {% if showResults == "true" %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          Player 1's Board:
+        </div>
+        {% else %}
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 5% ">
+          My Board:
+        </div>
+        {% endif %}
+
+        {% if showResults == "true" %}
+        <div style="margin-left: 10%; margin-right: 10%; ">
+        {% for row in board %}
+        <div style="margin-bottom: 10%;">
+        {% for column in row %}
+        
+        {% if "cp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "bp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "crp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "sp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "dp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">Hit!!!</div>
+          
+        </div>
+        {% elif "sd" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">SS!!!</div>
+          
+        </div>
+        {% elif "p" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; float: left; color: white; text-align: center; border-style: solid; border-color: white;">P</div>
+          
+        </div>
+        {% else %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 3vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">*</div>
+          
+        </div>
+
+        {% endif %}
+
+        {% endfor %}
+        {% endfor %}
+       
+        {% else %}
+
+        {% for row in board %}
+        <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 10%;">
+        {% for column in row %}
+
+        {% if "cp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "bp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "crp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "sp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "dp" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">{{column[:-1]}}</div>
+          
+        </div>
+        {% elif "sd" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: red;">SS!!!</div>
+          
+        </div>
+        {% elif "c" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+        {% elif "b" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+        {% elif "s" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+        {% elif "d" in column %}
+        <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: green;">{{column}}</div>
+          
+        </div>
+
+        {% elif "p" in column %}
+<div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: white;">{{column[:-1]}}</div>
+          
+        </div>
+        {% else %}
+ 
+         <div>
+          <div type="submit" style="width: 10%; height: 60px;  font-size: 2vw; color: white; float: left;  text-align: center; border-style: solid; border-color: blue;">{{column}}</div>
+          
+        </div>
+
+        {% endif %}
+
+        {% endfor %}
+        </div>
+        {% endfor %}
+
+        {% endif %}
+        </div>
+        {% endif %}
+     
+      
+        <div style="margin-bottom: 10%; margin-top: 1%;">
+          <br>
+        </div>
+      
+        <div style="margin-top: 10%; font-size: 4vw; color: white; margin-left: 22%; margin-right: 15%; margin-bottom: 10% ">
+          {% for sentence in sentences %}
+          {{sentence}}<br>
+          {% endfor %}
+        </div>
+        <form action="/" method="GET">
+        <div>
+          <button type="submit" class="btn btn-danger" style="width: 90%; height: 150px; margin-left: 5%; font-size: 2vw; float: left; margin-bottom: 1%;" >
+            Exit</button>
+          
+        </div>
+        </form>
+        
+       
+    </body>
+</html>
